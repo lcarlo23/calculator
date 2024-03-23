@@ -42,7 +42,8 @@ function operate(op) {
 //EVENTS VARIABLES
 
 const body = document.querySelector('body');
-const buttons = document.querySelector('#buttons');
+const btnCont = document.querySelector('#buttons');
+const btnArray = document.querySelectorAll('button');
 const display = document.querySelector('#display p');
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -51,12 +52,6 @@ const operators = ['/', '*', '-', '+', '='];
 let dispNum = 0;
 
 // EVENTS FUNCTIONS
-
-function pressClass(e) {
-
-    if (e.target.tagName == 'BUTTON') e.target.classList.add('clicking');
-
-}
 
 function clearBtn(e) {
     if (e.target.id === 'clear') {
@@ -100,11 +95,49 @@ function opBtn(e) {
     
 }
 
+function keyDown(e) {
+    for (let button of btnArray) {
+        if (button.textContent == e.key) {
+            button.classList.add('clicking');
+        }
+    }
+    if (e.key == 'Enter') {
+        btnCont.querySelector('#equal').classList.add('clicking');
+    } else if (e.key == 'Backspace' || e.key == 'Delete') {
+        btnCont.querySelector('#clear').classList.add('clicking');
+    }
+
+}
+
+function keyPress(e) {
+    for (let button of btnArray) {
+        if (button.textContent == e.key) {
+            button.classList.remove('clicking');
+            button.click();
+        }
+    }
+    if (e.key == 'Enter') {
+        const equalBtn = btnCont.querySelector('#equal');
+        equalBtn.classList.remove('clicking');
+        equalBtn.click();
+    } else if (e.key == 'Backspace' || e.key == 'Delete') {
+        const clearBtn = btnCont.querySelector('#clear');
+        clearBtn.classList.remove('clicking');
+        clearBtn.click();
+    }
+}
+
 // EVENTS LISTENERS
 
-buttons.addEventListener('mousedown', pressClass);
+btnCont.addEventListener('mousedown', e => {
+    if (e.target.tagName == 'BUTTON') e.target.classList.add('clicking');
+});
 
-buttons.addEventListener('click', e => {
+btnCont.addEventListener('mouseout', e => {
+    if (e.target.tagName == 'BUTTON') e.target.classList.remove('clicking');
+});
+
+btnCont.addEventListener('click', e => {
 
     if (e.target.tagName != 'BUTTON') return;
 
@@ -120,19 +153,5 @@ buttons.addEventListener('click', e => {
 });
 
 
-body.addEventListener('keyup', e => {
-
-    const code = e.code;
-    console.log(code);
-    if (code == 'Digit1') {
-        e.preventDefault();
-        document.getElementById('one').click();
-    }
-
-    // switch(code) {
-    //     case 'Digit1':
-    //         e.preventDefault();
-    //         buttons.querySelector('#one').click();
-    // }
-
-})
+body.addEventListener('keydown', keyDown);
+body.addEventListener('keyup', keyPress);
