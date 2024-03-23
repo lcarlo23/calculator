@@ -29,10 +29,10 @@ function divide(num1, num2) {
 
 function operate(op) {
 
-    if (op == '+') add();
-    if (op == '-') subtract();
-    if (op == '*') multiply();
-    if (op == '/') divide();
+    if (op == '+') return add(num1,num2);
+    if (op == '-') return subtract(num1,num2);
+    if (op == '*') return multiply(num1,num2);
+    if (op == '/') return divide(num1,num2);
 
 };
 
@@ -54,10 +54,9 @@ buttons.addEventListener('mouseup', (e) => {
     const target = e.target;
     const btnText = target.textContent;
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-    const operators = ['/', '*', '-', '+'];
+    const operators = ['/', '*', '-', '+', '='];
 
-
-    if (target.tagName == 'BUTTON') target.classList.remove('clicking');
+    target.classList.remove('clicking');
 
     if (target.id === 'clear') {
 
@@ -65,32 +64,31 @@ buttons.addEventListener('mouseup', (e) => {
 
         num1 = undefined;
         num2 = undefined;
-        dispNum = [];
+        op = undefined;
+        dispNum = 0;
 
     };
 
     if (numbers.includes(+btnText)) {
-        if (dispNum == 0) {
+        if (dispNum == 0 || display.textContent == num1) {
             display.textContent = '';
             dispNum = btnText;
         } else {
             dispNum += btnText;
         };
-        display.textContent = dispNum;
     };
 
     if (operators.includes(btnText)) {
         if (num1 == undefined) {
+            op = btnText;
             num1 = +dispNum;
-            display.textContent = num1;
-            dispNum = 0;
         } else {
             num2 = +dispNum;
-            display.textContent = operate(btnText);
-            
+            if (op != '=') num1 = operate(op);
+            dispNum = num1;
+            op = btnText;
         };
     };
-
-    if (btnText == '=') operate(btnText);
-    console.log(num1, num2);
+    display.textContent = dispNum;
+    console.log(num1, num2, op)
 });
