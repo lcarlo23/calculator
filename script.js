@@ -56,17 +56,11 @@ buttons.addEventListener('mouseup', (e) => {
     const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
     const operators = ['/', '*', '-', '+', '='];
 
-    target.classList.remove('clicking');
-
     if (target.id === 'clear') {
-
-        display.textContent = '0';
-
         num1 = undefined;
         num2 = undefined;
         op = undefined;
         dispNum = 0;
-
     };
 
     if (numbers.includes(+btnText)) {
@@ -89,6 +83,8 @@ buttons.addEventListener('mouseup', (e) => {
             op = btnText;
         };
     };
+    
+    target.classList.remove('clicking');
+
     display.textContent = dispNum;
-    console.log(num1, num2, op)
 });
