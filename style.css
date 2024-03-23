@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Orbitron:wght@400..900&display=swap');
+
+body {
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    padding: 50px;
+    color: #ddd;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+#calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+    width: 400px;
+    min-width: 400px;
+    height: 800px;
+    min-height: 800px;
+    background-color: #303037;
+    border-radius: 20px;
+    box-shadow: 0px 0px 50px black;
+    padding: 5px 10px;
+}
+
+h1 {
+    font-weight: 100;
+    font-size: 1.75rem;
+}
+
+#display {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    background-color: #334;
+    width: 95%;
+    height: 200px;
+    border-radius: 5px;
+    box-shadow: inset 0 0 20px #222;
+}
+
+#display p {
+    padding: 20px;
+    margin: 0;
+    font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2.5rem;
+    line-height: 2.5rem;
+    font-weight: 100;
+}
+
+#buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 60%;
+}
+
+button {
+    font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 900;
+    font-size: 1.75rem;
+    color: #eee;
+    width: 20%;
+    min-width: 15%;
+    margin: 10px;
+    border: 0;
+    border-radius: 10px;
+    background-color: #334;
+    box-shadow: 0 0 10px  -2px black;
+    transition: all 0.08s;
+}
+
+.clicking {
+    box-shadow: 0 0 5px  -2px black;
+}
