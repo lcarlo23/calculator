@@ -32,10 +32,10 @@ function divide(num1, num2) {
 
 function operate(op) {
 
-    if (op == '+') return add(num1,num2);
-    if (op == '-') return subtract(num1,num2);
-    if (op == '*') return multiply(num1,num2);
-    if (op == '/') return divide(num1,num2);
+    if (op == '+') return Math.round(add(num1,num2) * 1000) / 1000;
+    if (op == '-') return Math.round(subtract(num1,num2) * 1000) / 1000;
+    if (op == '*') return Math.round(multiply(num1,num2) * 1000) / 1000;
+    if (op == '/') return Math.round(divide(num1,num2) * 1000) / 1000;
 
 };
 
