@@ -25,7 +25,6 @@ function multiply(num1, num2) {
 }
 
 function divide(num1, num2) {
-    if (num2 == 0) return 'error';
     return num1 / num2;
 
 }
@@ -35,7 +34,10 @@ function operate(op) {
     if (op == '+') return Math.round(add(num1,num2) * 1000) / 1000;
     if (op == '-') return Math.round(subtract(num1,num2) * 1000) / 1000;
     if (op == '*') return Math.round(multiply(num1,num2) * 1000) / 1000;
-    if (op == '/') return Math.round(divide(num1,num2) * 1000) / 1000;
+    if (op == '/') {
+        if (num2 == 0) return 'error';
+        return Math.round(divide(num1,num2) * 1000) / 1000;
+    };
 
 };
 
@@ -47,7 +49,7 @@ const btnArray = document.querySelectorAll('button');
 const display = document.querySelector('#display p');
 
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-const operators = ['/', '*', '-', '+', '='];
+const operators = ['/', '*', '-', '+'];
 
 let dispNum = 0;
 
@@ -85,11 +87,32 @@ function opBtn(e) {
         if (num1 == undefined) {
             op = btnText;
             num1 = +dispNum;
+        } else if (op == undefined) {
+            op = btnText;
         } else {
             num2 = +dispNum;
-            if (op != '=') num1 = operate(op);
+            num1 = operate(op);
             dispNum = num1;
             op = btnText;
+            num2 = undefined;
+        };
+    };
+    
+}
+
+function equalBtn(e) {
+    
+    const btnText = e.target.textContent;
+
+    if (btnText == '=') {
+        if (num1 == undefined || op == undefined) {
+            return;
+        } else {
+            num2 = +dispNum;
+            num1 = operate(op);
+            dispNum = num1;
+            num2 = undefined;
+            op = undefined;
         };
     };
     
@@ -118,10 +141,12 @@ function keyPress(e) {
     }
     if (e.key == 'Enter') {
         const equalBtn = btnCont.querySelector('#equal');
+
         equalBtn.classList.remove('clicking');
         equalBtn.click();
     } else if (e.key == 'Backspace' || e.key == 'Delete') {
         const clearBtn = btnCont.querySelector('#clear');
+
         clearBtn.classList.remove('clicking');
         clearBtn.click();
     }
@@ -146,10 +171,14 @@ btnCont.addEventListener('click', e => {
     numBtn(e);
 
     opBtn(e);
+
+    equalBtn(e);
     
     e.target.classList.remove('clicking');
 
     display.textContent = dispNum;
+
+    console.log(num1, num2, op)
 });
 
 
