@@ -125,11 +125,10 @@ function equalBtn(e) {
         if (num1 == undefined || op == undefined || op == '=') {
             return;
         } else {
-            num2 = +dispNum;
+            num2 = +display.textContent;
             num1 = operate(op);
             dispNum = String(num1);
             display.textContent = dispNum;
-            num1 = undefined;
             num2 = undefined;
             op = btnText;
             dispNum = '0';
@@ -164,12 +163,15 @@ function keyPress(e) {
 
         equalBtn.classList.remove('clicking');
         equalBtn.click();
-    } else if (e.key == 'Backspace' || e.key == 'Delete') {
+    } else if (e.key == 'Delete') {
         const clearBtn = btnCont.querySelector('#clear');
 
         clearBtn.classList.remove('clicking');
         clearBtn.click();
+    } else if (e.key == 'Backspace') {
+        dispNum.slice('-1');
     }
+    console.log(e.key)
 }
 
 // EVENTS LISTENERS
