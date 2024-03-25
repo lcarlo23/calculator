@@ -51,7 +51,7 @@ const display = document.querySelector('#display p');
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const operators = ['/', '*', '-', '+'];
 
-let dispNum = 0;
+let dispNum = '0';
 
 // EVENTS FUNCTIONS
 
@@ -60,7 +60,7 @@ function clearBtn(e) {
         num1 = undefined;
         num2 = undefined;
         op = undefined;
-        dispNum = 0;
+        dispNum = '0';
     };
 }
 
@@ -68,8 +68,10 @@ function numBtn(e) {
 
     const btnText = e.target.textContent;
 
+    if (dispNum === '0' && btnText === '0') return;
+
     if (numbers.includes(+btnText)) {
-        if (dispNum === 0 || display.textContent == num1) {
+        if (dispNum === '0' || display.textContent == num1) {
             display.textContent = '';
             dispNum = btnText;
         } else {
@@ -83,12 +85,11 @@ function dotBtn(e) {
 
     const btnText = e.target.textContent;
 
-    if (num1 == undefined) {
+    if (dispNum.includes('.')) return;
+
+    if (btnText === '.') {
         dispNum += btnText;
-    } else {
-        
     }
-    ;
 
 }
 
@@ -179,6 +180,8 @@ btnCont.addEventListener('click', e => {
     clearBtn(e);
 
     numBtn(e);
+
+    dotBtn(e);
 
     opBtn(e);
 
