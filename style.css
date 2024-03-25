@@ -80,6 +80,10 @@ button {
     transition: all 0.05s;
 }
 
+#clear, #zero {
+    width: 45%;
+}
+
 .clicking {
     box-shadow: 0 0 5px  -2px black;
 }

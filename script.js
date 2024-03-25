@@ -35,7 +35,7 @@ function operate(op) {
     if (op == '-') return Math.round(subtract(num1,num2) * 1000) / 1000;
     if (op == '*') return Math.round(multiply(num1,num2) * 1000) / 1000;
     if (op == '/') {
-        if (num2 == 0) return 'error';
+        if (num2 == 0) return 'seriously?';
         return Math.round(divide(num1,num2) * 1000) / 1000;
     };
 
@@ -69,13 +69,26 @@ function numBtn(e) {
     const btnText = e.target.textContent;
 
     if (numbers.includes(+btnText)) {
-        if (dispNum == 0 || display.textContent == num1) {
+        if (dispNum === 0 || display.textContent == num1) {
             display.textContent = '';
             dispNum = btnText;
         } else {
             dispNum += btnText;
         };
     };
+    console.log(typeof dispNum)
+}
+
+function dotBtn(e) {
+
+    const btnText = e.target.textContent;
+
+    if (num1 == undefined) {
+        dispNum += btnText;
+    } else {
+        
+    }
+    ;
 
 }
 
@@ -84,18 +97,16 @@ function opBtn(e) {
     const btnText = e.target.textContent;
 
     if (operators.includes(btnText)) {
-        if (num1 == undefined) {
-            op = btnText;
+        if (num1 === undefined) {
             num1 = +dispNum;
-        } else if (op == undefined) {
+            op = btnText;
+        } else if (op == '=') {
             op = btnText;
         } else {
             num2 = +dispNum;
-            num1 = operate(op);
-            dispNum = num1;
+            dispNum = num1 = operate(op);
             op = btnText;
-            num2 = undefined;
-        };
+        }
     };
     
 }
@@ -105,14 +116,13 @@ function equalBtn(e) {
     const btnText = e.target.textContent;
 
     if (btnText == '=') {
-        if (num1 == undefined || op == undefined) {
+        if (num1 == undefined || op == undefined || op == '=') {
             return;
         } else {
             num2 = +dispNum;
             num1 = operate(op);
             dispNum = num1;
-            num2 = undefined;
-            op = undefined;
+            op = btnText;
         };
     };
     
