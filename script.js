@@ -48,7 +48,7 @@ const btnCont = document.querySelector('#buttons');
 const btnArray = document.querySelectorAll('button');
 const display = document.querySelector('#display p');
 
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
 const operators = ['/', '*', '-', '+'];
 
 let dispNum = '0';
@@ -61,6 +61,7 @@ function clearBtn(e) {
         num2 = undefined;
         op = undefined;
         dispNum = '0';
+        display.textContent = dispNum;
     };
 }
 
@@ -70,15 +71,15 @@ function numBtn(e) {
 
     if (dispNum === '0' && btnText === '0') return;
 
-    if (numbers.includes(+btnText)) {
-        if (dispNum === '0' || display.textContent == num1) {
-            display.textContent = '';
+    if (numbers.includes(btnText)) {
+        if (dispNum === '0') {
             dispNum = btnText;
+            display.textContent = dispNum;
         } else {
             dispNum += btnText;
+            display.textContent = dispNum;
         };
     };
-    console.log(typeof dispNum)
 }
 
 function dotBtn(e) {
@@ -89,8 +90,8 @@ function dotBtn(e) {
 
     if (btnText === '.') {
         dispNum += btnText;
+        display.textContent = dispNum;
     }
-
 }
 
 function opBtn(e) {
@@ -99,17 +100,21 @@ function opBtn(e) {
 
     if (operators.includes(btnText)) {
         if (num1 === undefined) {
-            num1 = +dispNum;
+            num1 = +display.textContent;
             op = btnText;
+            dispNum = '0';
         } else if (op == '=') {
             op = btnText;
-        } else {
-            num2 = +dispNum;
-            dispNum = num1 = operate(op);
+        } else if (num2 === undefined) {
+            num2 = +display.textContent;
+            num1 = operate(op);
+            dispNum = String(num1);
+            display.textContent = dispNum;
+            num2 = undefined;
             op = btnText;
+            dispNum = '0';
         }
     };
-    
 }
 
 function equalBtn(e) {
@@ -122,8 +127,12 @@ function equalBtn(e) {
         } else {
             num2 = +dispNum;
             num1 = operate(op);
-            dispNum = num1;
+            dispNum = String(num1);
+            display.textContent = dispNum;
+            num1 = undefined;
+            num2 = undefined;
             op = btnText;
+            dispNum = '0';
         };
     };
     
@@ -189,9 +198,6 @@ btnCont.addEventListener('click', e => {
     
     e.target.classList.remove('clicking');
 
-    display.textContent = dispNum;
-
-    console.log(num1, num2, op)
 });
 
 
