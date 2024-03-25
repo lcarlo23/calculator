@@ -31,12 +31,12 @@ function divide(num1, num2) {
 
 function operate(op) {
 
-    if (op == '+') return Math.round(add(num1,num2) * 1000) / 1000;
-    if (op == '-') return Math.round(subtract(num1,num2) * 1000) / 1000;
-    if (op == '*') return Math.round(multiply(num1,num2) * 1000) / 1000;
+    if (op == '+') return Math.round(add(num1,num2) * 100) / 100;
+    if (op == '-') return Math.round(subtract(num1,num2) * 100) / 100;
+    if (op == '*') return Math.round(multiply(num1,num2) * 100) / 100;
     if (op == '/') {
         if (num2 == 0) return 'seriously?';
-        return Math.round(divide(num1,num2) * 1000) / 1000;
+        return Math.round(divide(num1,num2) * 100) / 100;
     };
 
 };
