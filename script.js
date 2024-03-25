@@ -137,18 +137,25 @@ function equalBtn(e) {
     
 }
 
+function backBtn(e) {
+
+    const btnText = e.target.textContent;
+
+    if (btnText === '⌫' && dispNum.length > 1) {
+        dispNum = dispNum.slice(0, -1);
+        display.textContent = dispNum;
+    }
+}
+
 function keyDown(e) {
     for (let button of btnArray) {
         if (button.textContent == e.key) {
             button.classList.add('clicking');
         }
     }
-    if (e.key == 'Enter') {
-        btnCont.querySelector('#equal').classList.add('clicking');
-    } else if (e.key == 'Backspace' || e.key == 'Delete') {
-        btnCont.querySelector('#clear').classList.add('clicking');
-    }
-
+    if (e.key == 'Enter') btnCont.querySelector('#equal').classList.add('clicking');
+    if (e.key == 'Delete') btnCont.querySelector('#clear').classList.add('clicking');
+    if (e.key == 'Backspace') btnCont.querySelector('#back').classList.add('clicking');
 }
 
 function keyPress(e) {
@@ -163,13 +170,20 @@ function keyPress(e) {
 
         equalBtn.classList.remove('clicking');
         equalBtn.click();
-    } else if (e.key == 'Delete') {
+    };
+    
+    if (e.key == 'Delete') {
         const clearBtn = btnCont.querySelector('#clear');
 
         clearBtn.classList.remove('clicking');
         clearBtn.click();
-    } else if (e.key == 'Backspace') {
-        dispNum.slice('-1');
+    };
+    
+    if (e.key == 'Backspace') {
+        const backBtn = btnCont.querySelector('#back');
+
+        backBtn.classList.remove('clicking');
+        backBtn.click();
     }
     console.log(e.key)
 }
@@ -189,6 +203,8 @@ btnCont.addEventListener('click', e => {
     if (e.target.tagName != 'BUTTON') return;
 
     clearBtn(e);
+    
+    backBtn(e);
 
     numBtn(e);
 
